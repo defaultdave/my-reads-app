@@ -16,7 +16,6 @@ class SearchBooks extends Component {
 
   searchBooks = (query) => {
     BooksAPI.search(query, 20).then((books) => {
-      console.log('search books', books)
       this.setState({books})
     })
   }

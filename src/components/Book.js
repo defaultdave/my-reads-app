@@ -7,12 +7,7 @@ class Book extends Component {
     book: Proptypes.object.isRequired
   }
 
-  componentWillMount() {
-    console.log('My books', this.props.book)
-  }
-
   updateBookShelf = (shelf) => {
-    console.log('Shelf changed', shelf)
     const { book, onUpdateBook } = this.props
     onUpdateBook(book.id, shelf)
   }
