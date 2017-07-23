@@ -1,29 +1,26 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Proptypes from 'prop-types'
-import * as BooksAPI from '../BooksAPI'
 
 import Book from './Book'
 
 class SearchBooks extends Component {
   static propTypes = {
-    onUpdateBook: Proptypes.func.isRequired
+    onUpdateBook: Proptypes.func.isRequired,
+    onSearchTermChange: Proptypes.func.isRequired
   }
 
   state = {
-    books: []
+    term: ''
   }
 
-  searchBooks = (query) => {
-    BooksAPI.search(query, 20).then((result) => {
-      if(result && result.length > 0) {
-        this.setState({books: result})
-      }
-    })
+  onInputChange(term) {
+    this.setState({term})
+    this.props.onSearchTermChange(term)
   }
 
   render() {
-    const { onUpdateBook } = this.props
+    const { onUpdateBook, result } = this.props
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -43,14 +40,14 @@ class SearchBooks extends Component {
             <input
               type="text"
               placeholder="Search by title or author"
-              onChange={(event) => this.searchBooks(event.target.value)}
+              onChange={event => this.onInputChange(event.target.value)}
             />
 
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.state.books.map((book) => (
+            {result.map((book) => (
               <li key={book.id}>
                 <Book
                   book={book}
