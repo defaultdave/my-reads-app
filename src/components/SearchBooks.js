@@ -15,13 +15,11 @@ class SearchBooks extends Component {
   }
 
   searchBooks = (query) => {
-    BooksAPI.search(query, 20).then((books) => {
-      this.setState({books})
+    BooksAPI.search(query, 20).then((result) => {
+      if(result && result.length > 0) {
+        this.setState({books: result})
+      }
     })
-  }
-
-  searchAPI = (query) => {
-
   }
 
   render() {
