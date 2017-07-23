@@ -17,6 +17,7 @@ class Book extends Component {
     return (
       <div className="book">
         <div className="book-top">
+          {/*Some books come back with no images, check for this and handle  */}
           {book.imageLinks ?
             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
             : null
