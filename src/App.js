@@ -19,9 +19,12 @@ class BooksApp extends React.Component {
   }
 
   bookSearch = (term) => {
-    BooksAPI.search(term, 20).then((result) => {
+    BooksAPI.search(term, 20).then(result => {
+      console.log('search res:', result)
       if(result && result.length > 0) {
         this.setState({result})
+      } else {
+        this.setState({result: []})
       }
     })
   }
