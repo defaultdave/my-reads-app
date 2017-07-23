@@ -12,10 +12,6 @@ class BooksApp extends React.Component {
     result: []
   }
 
-  componentDidMount() {
-    this.getAllBooks()
-  }
-
   getAllBooks = () => {
     BooksAPI.getAll().then((books) => {
       this.setState({books})
@@ -30,10 +26,14 @@ class BooksApp extends React.Component {
     })
   }
 
+  /**
+   * @description Update a books shelf, return the promis of the update
+   * @param {number} bookID
+   * @param {string} shelf
+   * @returns {promise} BooksAPI promise after updating
+   */
   updateBook = (bookID, shelf) => {
-    BooksAPI.update({id: bookID}, shelf).then((res) => {
-      this.getAllBooks()
-    })
+    return BooksAPI.update({id: bookID}, shelf)
   }
 
   render() {
@@ -51,6 +51,7 @@ class BooksApp extends React.Component {
           <ListBooks
             books={this.state.books}
             onUpdateBook={this.updateBook}
+            onGetAllBooks={this.getAllBooks}
           />
         )}/>
       </div>

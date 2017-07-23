@@ -6,13 +6,22 @@ import Book from './Book'
 
 class ListBooks extends Component {
   static propTypes = {
-    books: Proptypes.array.isRequired,
-    onUpdateBook: Proptypes.func.isRequired
+    onUpdateBook: Proptypes.func.isRequired,
+    onGetAllBooks: Proptypes.func.isRequired
+  }
+
+  componentDidMount() {
+    this.props.onGetAllBooks()
+  }
+
+  updateBook = (id, shelf) => {
+    this.props.onUpdateBook(id, shelf).then(res =>{
+      this.props.onGetAllBooks()
+    })
   }
 
   render() {
-    const { books, onUpdateBook } = this.props
-
+    const { books } = this.props
     const shelves = books.reduce((acc, book) => {
       acc[book.shelf].push(book)
       return acc
@@ -33,7 +42,7 @@ class ListBooks extends Component {
                     <li key={book.id}>
                       <Book
                         book={book}
-                        onUpdateBook={onUpdateBook}
+                        onUpdateBook={this.updateBook}
                       />
                     </li>
                   ))}
@@ -48,7 +57,7 @@ class ListBooks extends Component {
                     <li key={book.id}>
                       <Book
                         book={book}
-                        onUpdateBook={onUpdateBook}
+                        onUpdateBook={this.updateBook}
                       />
                     </li>
                   ))}
@@ -63,7 +72,7 @@ class ListBooks extends Component {
                     <li key={book.id}>
                       <Book
                         book={book}
-                        onUpdateBook={onUpdateBook}
+                        onUpdateBook={this.updateBook}
                       />
                     </li>
                   ))}
