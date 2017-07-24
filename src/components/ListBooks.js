@@ -7,7 +7,8 @@ import Book from './Book'
 class ListBooks extends Component {
   static propTypes = {
     onUpdateBook: Proptypes.func.isRequired,
-    onGetAllBooks: Proptypes.func.isRequired
+    onGetAllBooks: Proptypes.func.isRequired,
+    onOpenBookDetail: Proptypes.func.isRequired
   }
 
   componentDidMount() {
@@ -21,7 +22,7 @@ class ListBooks extends Component {
   }
 
   render() {
-    const { books } = this.props
+    const { books, onOpenBookDetail } = this.props
     const shelves = books.reduce((acc, book) => {
       acc[book.shelf].push(book)
       return acc
@@ -43,6 +44,7 @@ class ListBooks extends Component {
                       <Book
                         book={book}
                         onUpdateBook={this.updateBook}
+                        onOpenBookDetail={onOpenBookDetail}
                       />
                     </li>
                   ))}
@@ -58,6 +60,7 @@ class ListBooks extends Component {
                       <Book
                         book={book}
                         onUpdateBook={this.updateBook}
+                        onOpenBookDetail={onOpenBookDetail}
                       />
                     </li>
                   ))}
@@ -73,6 +76,7 @@ class ListBooks extends Component {
                       <Book
                         book={book}
                         onUpdateBook={this.updateBook}
+                        onOpenBookDetail={onOpenBookDetail}
                       />
                     </li>
                   ))}

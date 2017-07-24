@@ -3,13 +3,21 @@ import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import _ from 'lodash';
 
-import { ListBooks, SearchBooks } from './components/index'
+import { ListBooks, SearchBooks, BookDetail } from './components/index'
 import './App.css'
 
 class BooksApp extends React.Component {
-  state = {
-    books: [],
-    result: []
+  constructor () {
+    super()
+    this.state = {
+      books: [],
+      result: [],
+      showModal: false
+    }
+  }
+
+  openBookDetail = (book) => {
+    this.setState({bookToDetail: book, showModal: true})
   }
 
   getAllBooks = () => {
@@ -42,6 +50,10 @@ class BooksApp extends React.Component {
     const bookSearch = _.debounce((term) => {this.bookSearch(term)}, 300);
     return (
       <div className="app">
+        <BookDetail
+          book={this.state.bookToDetail}
+          showModal={this.state.showModal}
+        />
         <Route path='/search' render={() => (
           <SearchBooks
             onUpdateBook={this.updateBook}
@@ -54,6 +66,7 @@ class BooksApp extends React.Component {
             books={this.state.books}
             onUpdateBook={this.updateBook}
             onGetAllBooks={this.getAllBooks}
+            onOpenBookDetail={this.openBookDetail}
           />
         )}/>
       </div>

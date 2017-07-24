@@ -1,7 +1,9 @@
 import ListBooks from './ListBooks'
 import SearchBooks from './SearchBooks'
+import BookDetail from './BookDetail'
 
 export {
   ListBooks,
-  SearchBooks
+  SearchBooks,
+  BookDetail
 }

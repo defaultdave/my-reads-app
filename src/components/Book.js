@@ -4,12 +4,18 @@ import Proptypes from 'prop-types'
 class Book extends Component {
   static propTypes = {
     onUpdateBook: Proptypes.func.isRequired,
-    book: Proptypes.object.isRequired
+    book: Proptypes.object.isRequired,
+    onOpenBookDetail: Proptypes.func.isRequired
   }
 
   updateBookShelf = (shelf) => {
     const { book, onUpdateBook } = this.props
     onUpdateBook(book.id, shelf)
+  }
+
+  handleClickBook = () => {
+    console.log('book clicked')
+    this.props.onOpenBookDetail(this.props.book)
   }
 
   render() {
@@ -19,7 +25,12 @@ class Book extends Component {
         <div className="book-top">
           {/*Some books come back with no images, check for this and handle  */}
           {book.imageLinks ?
-            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
+            <div
+              className="book-cover"
+              style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}
+              onClick={this.handleClickBook}
+            >
+            </div>
             : null
           }
           <div className="book-shelf-changer">
