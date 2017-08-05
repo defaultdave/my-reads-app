@@ -199,3 +199,7 @@ body, .app {
   font-size: large;
   font-weight: bold;
 }
+
+.ReactModal__Overlay {
+  z-index: 100;
+}

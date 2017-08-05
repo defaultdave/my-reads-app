@@ -7,7 +7,8 @@ import Book from './Book'
 class SearchBooks extends Component {
   static propTypes = {
     onUpdateBook: Proptypes.func.isRequired,
-    onSearchTermChange: Proptypes.func.isRequired
+    onSearchTermChange: Proptypes.func.isRequired,
+    onOpenBookDetail: Proptypes.func.isRequired
   }
 
   state = {
@@ -20,7 +21,7 @@ class SearchBooks extends Component {
   }
 
   render() {
-    const { onUpdateBook, result } = this.props
+    const { onUpdateBook, result, onOpenBookDetail} = this.props
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -52,6 +53,7 @@ class SearchBooks extends Component {
                 <Book
                   book={book}
                   onUpdateBook={onUpdateBook}
+                  onOpenBookDetail={onOpenBookDetail}
                 />
               </li>
             ))}

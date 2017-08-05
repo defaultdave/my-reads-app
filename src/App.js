@@ -54,18 +54,19 @@ class BooksApp extends React.Component {
           book={this.state.bookToDetail}
           showModal={this.state.showModal}
         />
-        <Route path='/search' render={() => (
-          <SearchBooks
-            onUpdateBook={this.updateBook}
-            onSearchTermChange={bookSearch}
-            result={this.state.result}
-          />
-        )}/>
         <Route exact path='/' render={({ history }) => (
           <ListBooks
             books={this.state.books}
             onUpdateBook={this.updateBook}
             onGetAllBooks={this.getAllBooks}
+            onOpenBookDetail={this.openBookDetail}
+          />
+        )}/>
+        <Route path='/search' render={() => (
+          <SearchBooks
+            onUpdateBook={this.updateBook}
+            onSearchTermChange={bookSearch}
+            result={this.state.result}
             onOpenBookDetail={this.openBookDetail}
           />
         )}/>
