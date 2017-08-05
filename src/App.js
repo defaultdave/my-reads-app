@@ -11,13 +11,16 @@ class BooksApp extends React.Component {
     super()
     this.state = {
       books: [],
-      result: [],
-      showModal: false
+      result: []
     }
   }
 
   openBookDetail = (book) => {
-    this.setState({bookToDetail: book, showModal: true})
+    this.setState({bookToDetail: book})
+  }
+
+  clearBook = () => {
+    this.setState({bookToDetail: null})
   }
 
   getAllBooks = () => {
@@ -52,7 +55,7 @@ class BooksApp extends React.Component {
       <div className="app">
         <BookDetail
           book={this.state.bookToDetail}
-          showModal={this.state.showModal}
+          clearBook={this.clearBook}
         />
         <Route exact path='/' render={({ history }) => (
           <ListBooks

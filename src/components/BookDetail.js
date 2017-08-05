@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
-import ReactModal from 'react-modal';
+import ReactModal from 'react-modal'
+import Proptypes from 'prop-types'
 
 class BookDetail extends Component {
+  static propTypes = {
+    book: Proptypes.object,
+    clearBook: Proptypes.func
+  }
   constructor () {
     super()
     this.state = {
@@ -9,27 +14,30 @@ class BookDetail extends Component {
       showModal: false
     }
 
-    this.handleOpenModal = this.handleOpenModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleOpenModal = this.handleOpenModal.bind(this)
+    this.handleCloseModal = this.handleCloseModal.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({showModal: nextProps.showModal})
+    if(nextProps.book) {
+      this.setState({book: nextProps.book, showModal: true})
+    }
   }
 
   handleOpenModal () {
-    this.setState({ showModal: true });
+    this.setState({ showModal: true })
   }
 
   handleCloseModal () {
-    this.setState({ showModal: false });
+    this.setState({book: null, showModal: false })
+    this.props.clearBook()
   }
 
   render(){
-    const { book } = this.props
+    const { book, showModal } = this.state
     return (
         <ReactModal
-           isOpen={this.state.showModal}
+           isOpen={showModal}
            contentLabel="Minimal Modal Example"
         >
           {book ?
