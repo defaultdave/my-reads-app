@@ -33,23 +33,23 @@ class BookDetail extends Component {
            contentLabel="Minimal Modal Example"
         >
           {book ?
-            <div>
-              <div className="book-title">Title: {book.title}</div>
+            <div className="modal-details">
+              <div className="book-title modal-text">Title: {book.title}</div>
 
-              <div className="book-authors">Authors:</div>
+              <div className="book-authors modal-text">Authors:</div>
               {book.authors.map((name) => (
-                <div className="book-authors" key={name}>{name}</div>
+                <div className="book-authors modal-text" key={name}>{name}</div>
               ))}
 
-              <div className="book-publisher">Publisher: {book.publisher}</div>
+              <div className="book-publisher modal-text">Publisher: {book.publisher}</div>
               <div
                 className="book-cover"
-                style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}
+                style={{ height: 200 , backgroundImage: `url(${book.imageLinks.thumbnail})` }}
               ></div>
             </div>
             : null
           }
-          <button onClick={this.handleCloseModal}>Close Modal</button>
+          <div className="modal-close" type='submit' onClick={this.handleCloseModal} value=''></div>
         </ReactModal>
     )
   }

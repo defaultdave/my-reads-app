@@ -14,7 +14,6 @@ class Book extends Component {
   }
 
   handleClickBook = () => {
-    console.log('book clicked')
     this.props.onOpenBookDetail(this.props.book)
   }
 
