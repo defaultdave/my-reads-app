@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Proptypes from 'prop-types'
 
-import Book from './Book'
+import Shelf from './Shelf'
 
 class ListBooks extends Component {
   static propTypes = {
@@ -24,10 +24,9 @@ class ListBooks extends Component {
   render() {
     const { books, onOpenBookDetail } = this.props
     const shelves = books.reduce((acc, book) => {
-      acc[book.shelf].push(book)
+      acc[book.shelf].books.push(book)
       return acc
-    }, {wantToRead:[ ], currentlyReading: [], read: []})
-
+    }, {currentlyReading: {name: 'Currently Reading', books:[]}, wantToRead:{name: 'Want To Read', books:[]}, read: {name: 'Read', books:[]}})
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -35,54 +34,14 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Currently Reading</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  {shelves.currentlyReading.map((book) => (
-                    <li key={book.id}>
-                      <Book
-                        book={book}
-                        onUpdateBook={this.updateBook}
-                        onOpenBookDetail={onOpenBookDetail}
-                      />
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Want to Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  {shelves.wantToRead.map((book) => (
-                    <li key={book.id}>
-                      <Book
-                        book={book}
-                        onUpdateBook={this.updateBook}
-                        onOpenBookDetail={onOpenBookDetail}
-                      />
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  {shelves.read.map((book) => (
-                    <li key={book.id}>
-                      <Book
-                        book={book}
-                        onUpdateBook={this.updateBook}
-                        onOpenBookDetail={onOpenBookDetail}
-                      />
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </div>
+            {Object.keys(shelves).map( (key, index) => (
+              <Shelf key={index}
+                shelfName={shelves[key].name}
+                booksOnShelf={shelves[key].books}
+                onUpdateBook={this.updateBook}
+                onOpenBookDetail={onOpenBookDetail}
+              />
+            ))}
           </div>
         </div>
         <div className="open-search">
